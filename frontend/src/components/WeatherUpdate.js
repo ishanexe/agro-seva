@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { WiDaySunny, WiHumidity, WiStrongWind } from "react-icons/wi";
+import { WiHumidity, WiStrongWind } from "react-icons/wi";
+import { motion } from "framer-motion";
 
 const WeatherUpdate = () => {
     const [city, setCity] = useState("");
@@ -28,8 +29,8 @@ const WeatherUpdate = () => {
     };
 
     return (
-        <div style={{ maxWidth: "400px", margin: "auto", padding: "20px", textAlign: "center", border: "1px solid #ddd", borderRadius: "10px", backgroundColor: "#f0f8ff" }}>
-            <h2>Weather Update</h2>
+        <div style={{ maxWidth: "400px", margin: "auto", padding: "20px", textAlign: "center", border: "1px solid #ddd", borderRadius: "15px", backgroundColor: "#f0f8ff" }}>
+            <h2>🌤 Weather Update</h2>
             <input
                 type="text"
                 placeholder="Enter city name"
@@ -38,20 +39,31 @@ const WeatherUpdate = () => {
                 style={{ padding: "10px", width: "80%", marginBottom: "10px", borderRadius: "5px", border: "1px solid #ccc" }}
             />
             <br />
-            <button onClick={fetchWeather} style={{ padding: "10px 20px", border: "none", backgroundColor: "#007bff", color: "white", borderRadius: "5px", cursor: "pointer" }}>
+            <motion.button 
+                onClick={fetchWeather} 
+                style={{ padding: "10px 20px", border: "none", backgroundColor: "#007bff", color: "white", borderRadius: "5px", cursor: "pointer" }}
+                whileTap={{ scale: 0.9 }} // Button press animation
+            >
                 Get Weather
-            </button>
+            </motion.button>
 
             {loading && <p>Loading...</p>}
             {error && <p style={{ color: "red" }}>{error}</p>}
 
             {weather && (
-                <div style={{ marginTop: "20px", padding: "10px", background: "#f8f9fa", borderRadius: "5px" }}>
+                <motion.div 
+                    key={weather.location} // Forces re-render for animation replay
+                    initial={{ opacity: 0, y: -20, scale: 0.9 }} 
+                    animate={{ opacity: 1, y: 0, scale: 1 }} 
+                    transition={{ type: "spring", stiffness: 120, damping: 10 }}
+                    style={{ marginTop: "20px", padding: "10px", background: "#f8f9fa", borderRadius: "10px", boxShadow: "0px 4px 10px rgba(0,0,0,0.2)" }}
+                >
                     <h3>{weather.location}</h3>
-                    <p><WiDaySunny /> Temperature: {weather.temperature}°C</p>
+                    <p>🌡 Temperature: {weather.temperature}°C</p>
                     <p><WiHumidity /> Humidity: {weather.humidity}%</p>
                     <p><WiStrongWind /> Wind Speed: {weather.wind_speed} m/s</p>
-                </div>
+                    <p>🌦 Condition: {weather.weather}</p>
+                </motion.div>
             )}
         </div>
     );
