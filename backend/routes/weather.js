@@ -27,6 +27,7 @@ router.get("/getWeather", async (req, res) => {
             weather: response.data.weather[0].description,
             humidity: response.data.main.humidity,
             wind_speed: response.data.wind.speed,
+            
         };
 
         weatherCache.set(city, result);
