@@ -5,7 +5,6 @@ const AdvisoryForm = () => {
   const [user, setUser] = useState("");
   const [advisory, setAdvisory] = useState("");
   const [advisories, setAdvisories] = useState([]);
-  const [showAll, setShowAll] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -16,7 +15,7 @@ const AdvisoryForm = () => {
   const fetchAdvisories = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:5000/api/advisory/getAll");
+      const response = await axios.get("http://192.168.1.5:5000/api/advisory/getAll");
       setAdvisories(response.data);
     } catch (err) {
       setError("Failed to fetch advisories.");
@@ -104,54 +103,27 @@ const AdvisoryForm = () => {
           {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
 
-        <div
-          style={{
-            padding: "10px",
-            backgroundColor: "#FAF3E0",
-            borderRadius: "5px",
-            border: "1px solid #8B4513",
-            height: "300px",
-            overflowY: "auto",
-          }}
-        >
-          <h3 style={{ color: "#6B4226" }}>Recent Advisories</h3>
+        <div>
           {advisories.length === 0 ? (
             <p>No advisories yet.</p>
           ) : (
-            <ul style={{ listStyleType: "none", padding: 0 }}>
-              {(showAll ? advisories : advisories.slice(0, 2)).map((adv, index) => (
-                <li
+            <div>
+              {advisories.map((adv, index) => (
+                <div
                   key={index}
                   style={{
-                    background: "#FFF8DC",
-                    margin: "10px 12px",
-                    padding: "10px",
-                    borderRadius: "5px",
                     border: "1px solid #8B4513",
+                    padding: "10px",
+                    marginBottom: "10px",
+                    borderRadius: "5px",
+                    backgroundColor: "#FFE4C4",
                   }}
                 >
-                  <strong style={{ color: "#228B22" }}>{adv.user}</strong>: {adv.advisory}
-                </li>
+                  <p><strong>{adv.user}</strong></p>
+                  <p>{adv.advisory}</p>
+                </div>
               ))}
-            </ul>
-          )}
-
-          {advisories.length > 5 && (
-            <button
-              onClick={() => setShowAll(!showAll)}
-              style={{
-                marginTop: "10px",
-                padding: "8px 15px",
-                backgroundColor: "#8B4513",
-                color: "white",
-                border: "none",
-                borderRadius: "5px",
-                cursor: "pointer",
-                fontWeight: "bold",
-              }}
-            >
-              {showAll ? "Show Less" : "Show All Advisories"}
-            </button>
+            </div>
           )}
         </div>
       </div>
