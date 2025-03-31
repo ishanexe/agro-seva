@@ -8,20 +8,29 @@ import WeatherUpdate from "./components/WeatherUpdate";
 import CropInfo from "./components/CropInfo";
 import Advisory from "./components/Advisory";
 import Schemes from "./components/Schemes";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import ProtectedRoute
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        {/* for rendering the "element" on the home page */}
+        {/* Public Routes */}
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
-        <Route path="/WeatherUpdate" element={<WeatherUpdate />} />
-        <Route path="/CropInfo" element={<CropInfo />} />
-        <Route path="/Advisory" element={<Advisory />} />
-        <Route path="/About" element={<About />} />
-        <Route path="/Contact" element={<Contact />} />
-        <Route path="/Schemes" element={<Schemes />} />
+
+        {/* Protected Routes (Only for Logged-in Users) */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/weatherupdate" element={<WeatherUpdate />} />
+          <Route path="/cropinfo" element={<CropInfo />} />
+          <Route path="/advisory" element={<Advisory />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/schemes" element={<Schemes />} />
+        </Route>
       </Routes>
     </Router>
   );
