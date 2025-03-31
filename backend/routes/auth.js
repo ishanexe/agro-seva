@@ -8,40 +8,34 @@ const fetchuser = require("../middleware/fetchuser");
 const JWT_SEC = "agro-sec-key"; //my secert key
 
 // Route 1 -> Signup (POST: /api/auth/signup)
-router.post("/signup", async (req, res) => { //hit api call at /signup
-    const { name, email, password } = req.body;  //req body for signup
+router.post("/signup", async (req, res) => {
+    const { name, email, password } = req.body;
 
     try {
-        //validating all inputs
         if (!name || !email || !password) {
             return res.status(400).json({ msg: "All fields are required" });
         }
 
-        // check if mail already exits, if it does redirect to login
-        const isMail = await User.findOne({ email }); //finding in outr db
+        // Check if email already exists
+        const isMail = await User.findOne({ email });
+        console.log('isMail:', isMail); // Log to verify if email already exists
         if (isMail) {
             return res.status(400).json({ msg: "Email already exists" });
         }
 
-        // Hash the password
+        // Hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPass = await bcrypt.hash(password, salt);
+        console.log('hashedPass:', hashedPass); // Log to verify the hashed password
 
-        // Create new user
-        const newUser = await User.create({  //User is a class and newUser is its blueprint(object)
-            name,
-            email,
-            password: hashedPass,
-        });
+        // Create user
+        const newUser = await User.create({ name, email, password: hashedPass });
+        console.log('newUser:', newUser); // Log to verify the created user
 
-        // Generate JWT token without expiration
-        const payload = {
-            myUser: {
-                id: newUser._id,
-            },
-        };
-
-        const jwtData = jwt.sign(payload, JWT_SEC); // No `expiresIn` set here
+        // Generate JWT token
+        const payload = { myUser: { id: newUser._id } };
+        const jwtData = jwt.sign(payload, JWT_SEC);
+        console.log('jwtData:', jwtData); // Log to verify the JWT token
 
         res.json({
             message: "Signup successful",
@@ -53,6 +47,7 @@ router.post("/signup", async (req, res) => { //hit api call at /signup
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 // Route 2 -> Login (POST: /api/auth/login)
 router.post("/login", async (req, res) => {
