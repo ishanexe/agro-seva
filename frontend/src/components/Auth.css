@@ -1,0 +1,61 @@
+/* src/components/Auth.css */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f7f7f7; /* Light grey background for contrast */
+}
+
+.auth-box {
+    width: 400px; /* Box width */
+    padding: 40px;
+    background-color: white; /* White box */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); /* Softer shadow */
+    border-radius: 8px;
+    color: black; /* Black text */
+    text-align: center;
+}
+
+.auth-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: black; /* Title in black */
+}
+
+.auth-box form input,
+.auth-box form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Light grey border */
+    border-radius: 4px;
+    font-size: 1rem;
+    color: black; /* Input text color */
+}
+
+.auth-box form input:focus,
+.auth-box form select:focus {
+    border-color: black; /* Dark border on focus */
+    outline: none; /* Remove default outline */
+}
+
+.auth-box form button {
+    width: 100%;
+    padding: 10px;
+    background-color: black; /* Black button */
+    color: white; /* White text */
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.auth-box form button:hover {
+    background-color: #444; /* Darker grey on hover */
+}
+
+.auth-error {
+    color: red;
+    margin-top: 10px;
+}
