@@ -57,8 +57,12 @@ const Navbar = () => {
             </div>
           ) : (
             <button
-              className="btn"
-              style={{ backgroundColor: "#f94449", color: "white", fontWeight: "bold" }}
+              className="btn btn-sm btn-small"
+              style={{ 
+                backgroundColor: "#f94449", 
+                color: "white", 
+                fontWeight: "bold"
+              }}
               onClick={handleLogout}
             >
               Logout

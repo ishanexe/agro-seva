@@ -21,7 +21,7 @@ app.use("/api/crops", require("./routes/crops"));
 app.use("/api/weather", require("./routes/weather"));
 app.use("/api/schemes", require("./routes/schemes"));
 app.use('/api/advisory', require('./routes/advisory'));
-
+app.use("/api/ml", require("./routes/mlRoute")); 
 
 
 // Start the server
