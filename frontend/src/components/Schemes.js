@@ -5,7 +5,12 @@ const Schemes = () => {
     const [schemes, setSchemes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [popup, setPopup] = useState({ show: false, message: "", title: "" });
+    const [activeFilter, setActiveFilter] = useState("All");
+    const [popup, setPopup] = useState({ 
+        show: false, 
+        scheme: null,
+        type: 'info' // 'info' or 'success'
+    });
 
     useEffect(() => {
         fetchSchemes();
@@ -25,7 +30,10 @@ const Schemes = () => {
                 "September 15, 2024"
             ];
             
-            const cleanedSchemes = response.data.map((scheme, index) => ({
+            // Skip the first scheme by slicing from index 1
+            const schemesWithoutFirst = response.data.slice(1);
+            
+            const cleanedSchemes = schemesWithoutFirst.map((scheme, index) => ({
                 ...scheme,
                 title: scheme.title.replace(/\s+/g, ' ').trim(),
                 requested: false,
@@ -41,30 +49,61 @@ const Schemes = () => {
 
     const handleRequestClick = (index) => {
         const scheme = schemes[index];
-        setSchemes(prevSchemes =>
-            prevSchemes.map((scheme, i) =>
-                i === index ? { ...scheme, requested: !scheme.requested } : scheme
-            )
-        );
-        
-        // Show popup
         if (!scheme.requested) {
             setPopup({
                 show: true,
-                message: `Your application for "${scheme.title}" has been submitted. Our team will contact you shortly with next steps.`,
-                title: "Application Received!"
+                type: 'info',
+                scheme: {
+                    ...scheme,
+                    requiredDocuments: [
+                        "Aadhaar Card",
+                        "Land ownership documents",
+                        "Bank Account details",
+                        "Income certificate",
+                        "Recent passport size photograph",
+                        "Caste certificate (if applicable)"
+                    ]
+                }
             });
         } else {
+            setSchemes(prevSchemes =>
+                prevSchemes.map((s, i) =>
+                    i === index ? { ...s, requested: false } : s
+                )
+            );
             setPopup({
                 show: true,
-                message: `Your request for "${scheme.title}" has been withdrawn.`,
-                title: "Request Withdrawn"
+                type: 'success',
+                scheme: {
+                    title: scheme.title,
+                    message: `Your request for "${scheme.title}" has been withdrawn.`
+                }
+            });
+        }
+    };
+
+    const handleApplyConfirm = () => {
+        if (popup.scheme) {
+            setSchemes(prevSchemes =>
+                prevSchemes.map(scheme =>
+                    scheme.title === popup.scheme.title 
+                        ? { ...scheme, requested: true } 
+                        : scheme
+                )
+            );
+            setPopup({
+                show: true,
+                type: 'success',
+                scheme: {
+                    title: popup.scheme.title,
+                    message: `Your application for "${popup.scheme.title}" has been submitted successfully.`
+                }
             });
         }
     };
 
     const closePopup = () => {
-        setPopup({ ...popup, show: false });
+        setPopup({ show: false, scheme: null, type: 'info' });
     };
 
     // Get a random badge for each scheme
@@ -73,6 +112,13 @@ const Schemes = () => {
         return badges[index % badges.length];
     };
 
+    const filterButtons = ["All", "New", "Popular", "Limited Time", "Recommended"];
+
+    const filteredSchemes = schemes.filter(scheme => {
+        if (activeFilter === "All") return true;
+        return getBadge(schemes.indexOf(scheme)) === activeFilter;
+    });
+
     return (
         <div style={{ 
             backgroundColor: "#FAEBCD", 
@@ -80,7 +126,6 @@ const Schemes = () => {
             padding: "30px 20px",
             fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif"
         }}>
-            {/* Popup message */}
             {popup.show && (
                 <div style={{
                     position: "fixed",
@@ -99,43 +144,132 @@ const Schemes = () => {
                         backgroundColor: "white",
                         padding: "30px",
                         borderRadius: "16px",
+                        width: "90%",
                         maxWidth: "500px",
-                        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)",
-                        position: "relative"
+                        boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)"
                     }}>
-                        <h3 style={{ 
-                            color: "#4B5320", 
-                            marginBottom: "15px", 
-                            fontSize: "1.4rem",
-                            fontWeight: "600"
-                        }}>
-                            {popup.title}
-                        </h3>
-                        <p style={{ 
-                            marginBottom: "25px", 
-                            color: "#555",
-                            lineHeight: "1.6" 
-                        }}>
-                            {popup.message}
-                        </p>
-                        <button 
-                            onClick={closePopup}
-                            style={{
-                                backgroundColor: "#6B8E23",
-                                color: "white",
-                                border: "none",
-                                padding: "10px 24px",
-                                borderRadius: "8px",
-                                cursor: "pointer",
-                                fontWeight: "600",
-                                fontSize: "15px",
-                                transition: "all 0.2s ease"
-                            }}
-                            onMouseOver={(e) => e.target.style.backgroundColor = "#5A7D12"}
-                            onMouseOut={(e) => e.target.style.backgroundColor = "#6B8E23"}
-                        >
-                            Close
-                        </button>
+                        {popup.type === 'info' ? (
+                            <>
+                                <h2 style={{ 
+                                    color: "#4B5320", 
+                                    marginBottom: "20px",
+                                    fontSize: "1.6rem",
+                                    fontWeight: "600"
+                                }}>
+                                    {popup.scheme?.title}
+                                </h2>
+                                
+                                <div style={{ marginBottom: "25px" }}>
+                                    <h3 style={{ 
+                                        color: "#6B8E23", 
+                                        marginBottom: "15px",
+                                        fontSize: "1.2rem",
+                                        fontWeight: "500"
+                                    }}>
+                                        Required Documents
+                                    </h3>
+                                    <ul style={{ 
+                                        listStyle: "none",
+                                        padding: 0,
+                                        margin: 0
+                                    }}>
+                                        {popup.scheme?.requiredDocuments.map((doc, index) => (
+                                            <li key={index} style={{
+                                                padding: "8px 0",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "10px",
+                                                color: "#555",
+                                                borderBottom: "1px solid #eee"
+                                            }}>
+                                                <span style={{ color: "#6B8E23" }}>📄</span>
+                                                {doc}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div style={{ 
+                                    display: "flex",
+                                    gap: "15px",
+                                    marginTop: "30px"
+                                }}>
+                                    <button 
+                                        onClick={handleApplyConfirm}
+                                        style={{
+                                            backgroundColor: "#6B8E23",
+                                            color: "white",
+                                            border: "none",
+                                            padding: "12px 24px",
+                                            borderRadius: "8px",
+                                            cursor: "pointer",
+                                            fontWeight: "600",
+                                            fontSize: "15px",
+                                            flex: 1,
+                                            transition: "all 0.2s ease"
+                                        }}
+                                        onMouseOver={(e) => e.target.style.backgroundColor = "#5A7D12"}
+                                        onMouseOut={(e) => e.target.style.backgroundColor = "#6B8E23"}
+                                    >
+                                        Confirm Application
+                                    </button>
+                                    <button 
+                                        onClick={closePopup}
+                                        style={{
+                                            backgroundColor: "#6c757d",
+                                            color: "white",
+                                            border: "none",
+                                            padding: "12px 24px",
+                                            borderRadius: "8px",
+                                            cursor: "pointer",
+                                            fontWeight: "600",
+                                            fontSize: "15px",
+                                            transition: "all 0.2s ease"
+                                        }}
+                                        onMouseOver={(e) => e.target.style.backgroundColor = "#5a6268"}
+                                        onMouseOut={(e) => e.target.style.backgroundColor = "#6c757d"}
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <h3 style={{ 
+                                    color: "#4B5320", 
+                                    marginBottom: "15px",
+                                    fontSize: "1.4rem",
+                                    fontWeight: "600"
+                                }}>
+                                    Application Status
+                                </h3>
+                                <p style={{ 
+                                    marginBottom: "25px",
+                                    color: "#555",
+                                    lineHeight: "1.6"
+                                }}>
+                                    {popup.scheme?.message}
+                                </p>
+                                <button 
+                                    onClick={closePopup}
+                                    style={{
+                                        backgroundColor: "#6B8E23",
+                                        color: "white",
+                                        border: "none",
+                                        padding: "10px 24px",
+                                        borderRadius: "8px",
+                                        cursor: "pointer",
+                                        fontWeight: "600",
+                                        fontSize: "15px",
+                                        transition: "all 0.2s ease"
+                                    }}
+                                    onMouseOver={(e) => e.target.style.backgroundColor = "#5A7D12"}
+                                    onMouseOut={(e) => e.target.style.backgroundColor = "#6B8E23"}
+                                >
+                                    Close
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
@@ -150,6 +284,48 @@ const Schemes = () => {
                 }}>
                     Government Schemes
                 </h2>
+
+                {/* Filter Buttons */}
+                <div style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "5px",
+                    marginBottom: "30px",
+                    flexWrap: "nowrap"
+                }}>
+                    {filterButtons.map((filter) => (
+                        <button
+                            key={filter}
+                            onClick={() => setActiveFilter(filter)}
+                            style={{
+                                backgroundColor: activeFilter === filter ? "#4B5320" : "white",
+                                color: activeFilter === filter ? "white" : "#4B5320",
+                                border: `1px solid ${activeFilter === filter ? "#4B5320" : "#6B8E23"}`,
+                                padding: "4px 12px",
+                                borderRadius: "15px",
+                                cursor: "pointer",
+                                fontWeight: "500",
+                                fontSize: "15px",
+                                transition: "all 0.3s ease",
+                                minWidth: "60px",
+                                height: "30px",
+                                lineHeight: "1"
+                            }}
+                            onMouseOver={(e) => {
+                                if (activeFilter !== filter) {
+                                    e.target.style.backgroundColor = "#f8f9fa";
+                                }
+                            }}
+                            onMouseOut={(e) => {
+                                if (activeFilter !== filter) {
+                                    e.target.style.backgroundColor = "white";
+                                }
+                            }}
+                        >
+                            {filter}
+                        </button>
+                    ))}
+                </div>
                 
                 {loading && (
                     <div style={{ 
@@ -185,7 +361,7 @@ const Schemes = () => {
                     </div>
                 )}
 
-                {schemes.length === 0 && !loading ? (
+                {filteredSchemes.length === 0 && !loading ? (
                     <div style={{ 
                         textAlign: "center", 
                         padding: "40px", 
@@ -195,15 +371,17 @@ const Schemes = () => {
                     }}>
                         <div style={{ fontSize: "3rem", marginBottom: "15px" }}>🌾</div>
                         <p style={{ color: "#666", fontSize: "17px" }}>
-                            No schemes available at the moment.
+                            {activeFilter === "All" 
+                                ? "No schemes available at the moment."
+                                : `No ${activeFilter} schemes available at the moment.`}
                             <br />
                             Please check back later for new government initiatives.
                         </p>
                     </div>
                 ) : (
                     <div>
-                        {schemes.map((scheme, index) => {
-                            const badge = getBadge(index);
+                        {filteredSchemes.map((scheme, index) => {
+                            const badge = getBadge(schemes.indexOf(scheme));
                             
                             return (
                                 <div key={index} style={{
@@ -286,7 +464,7 @@ const Schemes = () => {
                                         </div>
                                         
                                         <button
-                                            onClick={() => handleRequestClick(index)}
+                                            onClick={() => handleRequestClick(schemes.indexOf(scheme))}
                                             style={{
                                                 backgroundColor: scheme.requested ? "#FF5722" : "#6B8E23",
                                                 color: "white",

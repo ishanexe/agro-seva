@@ -47,12 +47,9 @@ const CropPriceLookup = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 style={{ 
-                    maxWidth: "800px", 
-                    margin: "0 auto", 
-                    padding: "35px", 
-                    backgroundColor: "white", 
-                    borderRadius: "16px",
-                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
+                    maxWidth: "1000px", 
+                    margin: "0 auto",
+                    padding: "30px"
                 }}
             >
                 <motion.h1 
@@ -63,134 +60,124 @@ const CropPriceLookup = () => {
                         textAlign: "center", 
                         marginBottom: "30px", 
                         color: "#4B5320",
-                        fontSize: "2.2rem",
+                        fontSize: "2.5rem",
                         fontWeight: "700"
                     }}
                 >
                     Crop Price Information
                 </motion.h1>
-                
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    style={{
-                        textAlign: "center",
-                        marginBottom: "30px",
-                        color: "#666",
-                        maxWidth: "500px",
-                        margin: "0 auto 40px"
-                    }}
-                >
-                    Select a commodity and district to get the latest market prices for agricultural products.
-                </motion.p>
-                
+
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                     style={{ 
-                        backgroundColor: "rgba(107, 142, 35, 0.06)", 
-                        padding: "25px", 
-                        borderRadius: "12px",
+                        backgroundColor: "#FFF", 
+                        padding: "30px",
+                        borderRadius: "20px",
                         marginBottom: "30px"
                     }}
                 >
-                    <div style={{ marginBottom: "20px" }}>
-                        <label style={{ 
-                            display: "block", 
-                            marginBottom: "8px", 
-                            color: "#4B5320", 
-                            fontWeight: "600",
-                            fontSize: "1rem"
-                        }}>
-                            Select Commodity
-                        </label>
-                        <motion.select 
-                            whileHover={{ scale: 1.01 }}
-                            whileFocus={{ scale: 1.01 }}
-                            transition={{ duration: 0.2 }}
-                    value={commodity} 
-                    onChange={(e) => setCommodity(e.target.value)} 
-                            style={{ 
-                                padding: "13px 16px", 
-                                width: "100%", 
-                                marginBottom: "20px",
-                                borderRadius: "8px",
-                                border: "2px solid #D7CCA3",
-                                boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
-                                fontSize: "16px",
-                                color: "#333",
-                                backgroundColor: "#FFF",
-                                cursor: "pointer",
-                                outline: "none",
-                                transition: "all 0.2s ease"
-                            }}
-                        >
-                            <option value="">-- Select a commodity --</option>
-                    {commodityOptions.map((item, index) => (
-                        <option key={index} value={item}>{item}</option>
-                    ))}
-                        </motion.select>
+                    <div style={{ 
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "20px",
+                        marginBottom: "25px"
+                    }}>
+                        <div>
+                            <label style={{ 
+                                display: "block", 
+                                marginBottom: "10px", 
+                                color: "#4B5320", 
+                                fontWeight: "600",
+                                fontSize: "1rem"
+                            }}>
+                                Select Commodity
+                            </label>
+                            <motion.select 
+                                whileHover={{ scale: 1.01 }}
+                                whileFocus={{ scale: 1.01 }}
+                                transition={{ duration: 0.2 }}
+                                value={commodity} 
+                                onChange={(e) => setCommodity(e.target.value)} 
+                                style={{ 
+                                    width: "100%",
+                                    padding: "12px 16px",
+                                    border: "2px solid #D7CCA3",
+                                    borderRadius: "12px",
+                                    fontSize: "16px",
+                                    color: "#4B5320",
+                                    backgroundColor: "#FFF",
+                                    cursor: "pointer",
+                                    outline: "none",
+                                    transition: "all 0.2s ease"
+                                }}
+                            >
+                                <option value="">-- Select a commodity --</option>
+                                {commodityOptions.map((item, index) => (
+                                    <option key={index} value={item}>{item}</option>
+                                ))}
+                            </motion.select>
+                        </div>
 
-                        <label style={{ 
-                            display: "block", 
-                            marginBottom: "8px", 
-                            color: "#4B5320", 
-                            fontWeight: "600",
-                            fontSize: "1rem"
-                        }}>
-                            Select District
-                        </label>
-                        <motion.select 
-                            whileHover={{ scale: 1.01 }}
-                            whileFocus={{ scale: 1.01 }}
-                            transition={{ duration: 0.2 }}
-                    value={district} 
-                    onChange={(e) => setDistrict(e.target.value)} 
-                            style={{ 
-                                padding: "13px 16px", 
-                                width: "100%", 
-                                borderRadius: "8px",
-                                border: "2px solid #D7CCA3",
-                                boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
-                                fontSize: "16px",
-                                color: "#333",
-                                backgroundColor: "#FFF",
-                                cursor: "pointer",
-                                outline: "none",
-                                transition: "all 0.2s ease"
-                            }}
-                        >
-                            <option value="">-- Select a district --</option>
-                    {districtOptions.map((item, index) => (
-                        <option key={index} value={item}>{item}</option>
-                    ))}
-                        </motion.select>
-            </div>
-            
+                        <div>
+                            <label style={{ 
+                                display: "block", 
+                                marginBottom: "10px", 
+                                color: "#4B5320", 
+                                fontWeight: "600",
+                                fontSize: "1rem"
+                            }}>
+                                Select District
+                            </label>
+                            <motion.select 
+                                whileHover={{ scale: 1.01 }}
+                                whileFocus={{ scale: 1.01 }}
+                                transition={{ duration: 0.2 }}
+                                value={district} 
+                                onChange={(e) => setDistrict(e.target.value)} 
+                                style={{ 
+                                    width: "100%",
+                                    padding: "12px 16px",
+                                    border: "2px solid #D7CCA3",
+                                    borderRadius: "12px",
+                                    fontSize: "16px",
+                                    color: "#4B5320",
+                                    backgroundColor: "#FFF",
+                                    cursor: "pointer",
+                                    outline: "none",
+                                    transition: "all 0.2s ease"
+                                }}
+                            >
+                                <option value="">-- Select a district --</option>
+                                {districtOptions.map((item, index) => (
+                                    <option key={index} value={item}>{item}</option>
+                                ))}
+                            </motion.select>
+                        </div>
+                    </div>
+
                     <motion.button 
-                onClick={fetchPrices} 
-                        whileHover={{ scale: 1.02, backgroundColor: "#5A7D12" }}
+                        onClick={fetchPrices} 
+                        whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         style={{ 
-                            padding: "14px 20px", 
                             width: "100%",
-                            border: "none", 
-                            backgroundColor: "#6B8E23", 
-                            color: "white", 
-                            borderRadius: "8px", 
+                            padding: "14px 20px",
+                            border: "none",
+                            backgroundColor: "#6B8E23",
+                            color: "white",
+                            borderRadius: "12px",
                             cursor: "pointer",
                             fontSize: "16px",
                             fontWeight: "600",
-                            boxShadow: "0 3px 6px rgba(0,0,0,0.1)",
                             transition: "all 0.2s ease"
                         }}
                     >
                         Check Prices
                     </motion.button>
                 </motion.div>
-                
+
                 <AnimatePresence>
                     {loading && (
                         <motion.div 
@@ -199,261 +186,135 @@ const CropPriceLookup = () => {
                             exit={{ opacity: 0 }}
                             style={{ 
                                 textAlign: "center", 
-                                marginTop: "20px", 
-                                marginBottom: "20px" 
+                                marginTop: "30px"
                             }}
                         >
                             <div style={{ 
-                                display: "inline-block", 
-                                width: "35px", 
-                                height: "35px", 
-                                border: "3px solid rgba(107, 142, 35, 0.3)", 
-                                borderRadius: "50%", 
-                                borderTopColor: "#6B8E23", 
-                                animation: "spin 1s ease-in-out infinite" 
+                                display: "inline-block",
+                                width: "40px",
+                                height: "40px",
+                                border: "3px solid rgba(107, 142, 35, 0.3)",
+                                borderRadius: "50%",
+                                borderTopColor: "#6B8E23",
+                                animation: "spin 1s ease-in-out infinite"
                             }}></div>
                             <p style={{ 
-                                color: "#6B8E23", 
-                                marginTop: "10px", 
+                                color: "#6B8E23",
+                                marginTop: "15px",
                                 fontWeight: "500"
                             }}>
                                 Fetching latest prices...
                             </p>
                         </motion.div>
                     )}
-                    
+
                     {error && (
                         <motion.div 
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
-                            transition={{ duration: 0.3 }}
                             style={{ 
-                                color: "white", 
-                                backgroundColor: "#D32F2F",
-                                padding: "12px 16px",
-                                borderRadius: "8px",
+                                backgroundColor: "#FFF",
+                                color: "#D32F2F",
+                                padding: "16px 20px",
+                                borderRadius: "12px",
                                 marginTop: "20px",
-                                marginBottom: "20px",
-                                textAlign: "center"
+                                textAlign: "center",
+                                fontSize: "15px",
+                                fontWeight: "500"
                             }}
                         >
                             {error}
                         </motion.div>
                     )}
                 </AnimatePresence>
-                
+
                 <AnimatePresence>
-            {prices && (
+                    {prices && (
                         <motion.div 
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            style={{ 
-                                marginTop: "25px"
-                            }}
+                            style={{ marginTop: "30px" }}
                         >
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    alignItems: "center",
-                                    marginBottom: "20px",
-                                    paddingBottom: "10px",
-                                    borderBottom: "1px solid #e0e0e0"
-                                }}
-                            >
-                                <h3 style={{ 
-                                    color: "#4B5320", 
-                                    fontSize: "1.5rem", 
-                                    margin: 0,
-                                    fontWeight: "600"
-                                }}>
-                                    Price Details
-                                </h3>
-                                <div style={{
-                                    color: "#666",
-                                    fontSize: "0.9rem"
-                                }}>
-                                    {new Date().toLocaleDateString('en-US', { 
-                                        year: 'numeric', 
-                                        month: 'long', 
-                                        day: 'numeric' 
-                                    })}
-                                </div>
-                            </motion.div>
-                            
                             <div style={{ 
-                                display: "flex", 
-                                flexDirection: "column", 
-                                gap: "20px" 
+                                display: "grid",
+                                gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+                                gap: "20px"
                             }}>
-                        {prices.map((data, index) => (
+                                {prices.map((data, index) => (
                                     <motion.div
                                         key={index}
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: index * 0.1 }}
+                                        whileHover={{ 
+                                            y: -5,
+                                            transition: { duration: 0.2 }
+                                        }}
                                         style={{ 
-                                            padding: "20px", 
-                                            backgroundColor: "#F9F6EE", 
-                                            borderRadius: "12px",
-                                            boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
-                                            border: "1px solid rgba(215, 204, 163, 0.3)"
+                                            backgroundColor: "#FFF",
+                                            borderRadius: "16px",
+                                            overflow: "hidden",
+                                            transition: "all 0.3s ease",
+                                            cursor: "pointer"
                                         }}
                                     >
-                                        <div style={{ 
-                                            marginBottom: "18px", 
-                                            paddingBottom: "10px", 
-                                            borderBottom: "1px dashed rgba(107, 142, 35, 0.3)",
-                                            display: "flex",
-                                            justifyContent: "space-between",
-                                            alignItems: "center"
+                                        <div style={{
+                                            backgroundColor: "#6B8E23",
+                                            padding: "20px",
+                                            color: "white",
+                                            position: "relative",
+                                            overflow: "hidden"
                                         }}>
-                                            <div>
-                                                <span style={{ 
-                                                    fontWeight: "600", 
-                                                    color: "#4B5320",
-                                                    fontSize: "0.9rem"
-                                                }}>
-                                                    Market:
-                                                </span> 
-                                                <span style={{ 
-                                                    fontWeight: "bold", 
-                                                    marginLeft: "5px",
-                                                    fontSize: "1.1rem"
-                                                }}>
-                                                    {data.Market}
-                                                </span>
-                                            </div>
-                                            <div style={{
-                                                backgroundColor: "rgba(107, 142, 35, 0.2)",
-                                                color: "#4B5320",
-                                                padding: "4px 10px",
-                                                borderRadius: "20px",
-                                                fontSize: "12px",
-                                                fontWeight: "bold"
-                                            }}>
-                                                APMC Market Price
-                                            </div>
-                                        </div>
-                                        
-                                        <div style={{ 
-                                            display: "grid", 
-                                            gridTemplateColumns: "repeat(3, 1fr)", 
-                                            gap: "15px" 
-                                        }}>
-                                            <motion.div 
-                                                whileHover={{ scale: 1.04, y: -5 }}
-                                                transition={{ type: "spring", stiffness: 300 }}
-                                                style={{ 
-                                                    padding: "15px", 
-                                                    backgroundColor: "white", 
-                                                    borderRadius: "10px",
-                                                    textAlign: "center",
-                                                    boxShadow: "0 3px 8px rgba(0,0,0,0.04)",
-                                                    border: "1px solid rgba(46, 125, 50, 0.1)"
+                                            <motion.div
+                                                initial={{ scale: 1 }}
+                                                whileHover={{ scale: 1.05 }}
+                                                style={{
+                                                    position: "relative",
+                                                    zIndex: 1
                                                 }}
                                             >
-                                                <div style={{ 
-                                                    fontSize: "14px", 
-                                                    color: "#2E7D32", 
-                                                    marginBottom: "8px",
-                                                    fontWeight: "500" 
+                                                <div style={{
+                                                    fontSize: "1.2rem",
+                                                    fontWeight: "600",
+                                                    marginBottom: "5px"
                                                 }}>
-                                                    Minimum Price
+                                                    {data.Market || "Market Name"}
                                                 </div>
-                                                <div style={{ 
-                                                    fontSize: "1.4rem", 
-                                                    fontWeight: "700",
-                                                    color: "#2E7D32"
+                                                <div style={{
+                                                    fontSize: "0.9rem",
+                                                    opacity: 0.9
                                                 }}>
-                                                    ₹ {data["Min Price"]}
-                                                </div>
-                                                <div style={{ 
-                                                    fontSize: "12px", 
-                                                    color: "#666", 
-                                                    marginTop: "5px" 
-                                                }}>
-                                                    per quintal
-                                                </div>
-                                            </motion.div>
-                                            
-                                            <motion.div 
-                                                whileHover={{ scale: 1.04, y: -5 }}
-                                                transition={{ type: "spring", stiffness: 300 }}
-                                                style={{ 
-                                                    padding: "15px", 
-                                                    backgroundColor: "white", 
-                                                    borderRadius: "10px",
-                                                    textAlign: "center",
-                                                    boxShadow: "0 3px 8px rgba(0,0,0,0.04)",
-                                                    border: "1px solid rgba(230, 81, 0, 0.1)"
-                                                }}
-                                            >
-                                                <div style={{ 
-                                                    fontSize: "14px", 
-                                                    color: "#E65100", 
-                                                    marginBottom: "8px",
-                                                    fontWeight: "500" 
-                                                }}>
-                                                    Modal Price
-                                                </div>
-                                                <div style={{ 
-                                                    fontSize: "1.4rem", 
-                                                    fontWeight: "700",
-                                                    color: "#E65100"
-                                                }}>
-                                                    ₹ {data["Modal Price"]}
-                                                </div>
-                                                <div style={{ 
-                                                    fontSize: "12px", 
-                                                    color: "#666", 
-                                                    marginTop: "5px" 
-                                                }}>
-                                                    per quintal
-                                                </div>
-                                            </motion.div>
-                                            
-                                            <motion.div 
-                                                whileHover={{ scale: 1.04, y: -5 }}
-                                                transition={{ type: "spring", stiffness: 300 }}
-                                                style={{ 
-                                                    padding: "15px", 
-                                                    backgroundColor: "white", 
-                                                    borderRadius: "10px",
-                                                    textAlign: "center",
-                                                    boxShadow: "0 3px 8px rgba(0,0,0,0.04)",
-                                                    border: "1px solid rgba(2, 136, 209, 0.1)"
-                                                }}
-                                            >
-                                                <div style={{ 
-                                                    fontSize: "14px", 
-                                                    color: "#0288D1", 
-                                                    marginBottom: "8px",
-                                                    fontWeight: "500" 
-                                                }}>
-                                                    Maximum Price
-                                                </div>
-                                                <div style={{ 
-                                                    fontSize: "1.4rem", 
-                                                    fontWeight: "700",
-                                                    color: "#0288D1"
-                                                }}>
-                                                    ₹ {data["Max Price"]}
-                                                </div>
-                                                <div style={{ 
-                                                    fontSize: "12px", 
-                                                    color: "#666", 
-                                                    marginTop: "5px" 
-                                                }}>
-                                                    per quintal
+                                                    APMC Market Price
                                                 </div>
                                             </motion.div>
                                         </div>
+
+                                        <motion.div 
+                                            style={{ padding: "20px" }}
+                                            initial={{ opacity: 1 }}
+                                            whileHover={{ opacity: 0.9 }}
+                                        >
+                                            <AnimatedPriceItem 
+                                                label="Minimum Price"
+                                                value={data["Min Price"]}
+                                                color="#4B5320"
+                                            />
+                                            <div style={{ height: "10px" }} />
+                                            <AnimatedPriceItem 
+                                                label="Modal Price"
+                                                value={data["Modal Price"]}
+                                                color="#6B8E23"
+                                            />
+                                            <div style={{ height: "10px" }} />
+                                            <AnimatedPriceItem 
+                                                label="Maximum Price"
+                                                value={data["Max Price"]}
+                                                color="#8B9556"
+                                            />
+                                        </motion.div>
                                     </motion.div>
                                 ))}
                             </div>
@@ -469,5 +330,43 @@ const CropPriceLookup = () => {
         </div>
     );
 };
+
+const AnimatedPriceItem = ({ label, value, color }) => (
+    <motion.div
+        whileHover={{ 
+            scale: 1.02,
+            backgroundColor: `${color}15`
+        }}
+        initial={{ scale: 1 }}
+        style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "12px",
+            backgroundColor: "#F9F6EE",
+            borderRadius: "8px",
+            transition: "all 0.2s ease"
+        }}
+    >
+        <motion.div 
+            initial={{ x: 0 }}
+            whileHover={{ x: 3 }}
+            style={{ color: "#4B5320", fontSize: "0.9rem" }}
+        >
+            {label}
+        </motion.div>
+        <motion.div 
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.1 }}
+            style={{ 
+                color: color,
+                fontSize: "1.1rem",
+                fontWeight: "600"
+            }}
+        >
+            ₹{value}
+        </motion.div>
+    </motion.div>
+);
 
 export default CropPriceLookup;
