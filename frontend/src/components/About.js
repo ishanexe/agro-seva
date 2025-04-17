@@ -40,26 +40,74 @@ const About = () => {
                 <h3 style={{ fontSize: "26px", marginTop: "40px", fontWeight: "bold", color: "#6B8E23" }}>
                     Why Choose Us?
                 </h3>
-                <div style={{ display: "inline-block", textAlign: "left", marginTop: "20px", fontSize: "18px", color: "#444", lineHeight: "2" }}>
+                <div style={{ display: "inline-block", textAlign: "left", marginTop: "10px", fontSize: "18px", color: "#444", lineHeight: "1" }}>
                     <p>✅ Accurate Weather Forecasts</p>
                     <p>✅ Latest Crop Price Updates</p>
                     <p>✅ Government Schemes & Benefits</p>
                     <p>✅ Expert Advisory Support</p>
                     <p>✅ Crop Recommendation System</p>
                 </div>
+
+                <h3 style={{ fontSize: "26px", marginTop: "40px", fontWeight: "bold", color: "#6B8E23" }}>
+                    Our Grades
+                </h3>
+                <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "20px", marginTop: "20px" }}>
+                    <div style={{ 
+                        backgroundColor: "#fff", 
+                        padding: "15px", 
+                        borderRadius: "10px", 
+                        width: "160px",
+                        boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
+                    }}>
+                        <div style={{ fontSize: "42px", fontWeight: "bold", color: "#4CAF50" }}>A+</div>
+                        <div style={{ fontSize: "16px", color: "#555" }}>Weather Accuracy</div>
+                    </div>
+                    <div style={{ 
+                        backgroundColor: "#fff", 
+                        padding: "15px", 
+                        borderRadius: "10px", 
+                        width: "160px",
+                        boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
+                    }}>
+                        <div style={{ fontSize: "42px", fontWeight: "bold", color: "#4CAF50" }}>A</div>
+                        <div style={{ fontSize: "16px", color: "#555" }}>Market Price Updates</div>
+                    </div>
+                    <div style={{ 
+                        backgroundColor: "#fff", 
+                        padding: "15px", 
+                        borderRadius: "10px", 
+                        width: "160px",
+                        boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
+                    }}>
+                        <div style={{ fontSize: "42px", fontWeight: "bold", color: "#4CAF50" }}>A</div>
+                        <div style={{ fontSize: "16px", color: "#555" }}>User Satisfaction</div>
+                    </div>
+                    <div style={{ 
+                        backgroundColor: "#fff", 
+                        padding: "15px", 
+                        borderRadius: "10px", 
+                        width: "160px",
+                        boxShadow: "0 4px 8px rgba(0,0,0,0.1)"
+                    }}>
+                        <div style={{ fontSize: "42px", fontWeight: "bold", color: "#4CAF50" }}>B+</div>
+                        <div style={{ fontSize: "16px", color: "#555" }}>Advisory Quality</div>
+                    </div>
+                </div>
             </div>
 
             <button
                 onClick={handleGetStarted}
                 style={{
-                    marginTop: "40px",
+                    marginTop: "20px",
                     backgroundColor: "#6B8E23",
                     color: "#fff",
                     border: "none",
-                    padding: "12px 30px",
-                    borderRadius: "6px",
-                    fontSize: "18px",
+                    padding: "10px 40px",
+                    borderRadius: "30px",
+                    fontSize: "16px",
+                    fontWeight: "500",
                     cursor: "pointer",
+                    width: "170px",
                     alignSelf: "center",
                     transition: "background-color 0.3s ease"
                 }}

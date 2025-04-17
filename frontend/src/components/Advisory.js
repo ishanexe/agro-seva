@@ -104,7 +104,7 @@ const AdvisoryForm = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      style={{ backgroundColor: "#F5DEB3", minHeight: "100vh", padding: "20px" }}
+      style={{ backgroundColor: "#FAEBCD", minHeight: "100vh", padding: "20px" }}
     >
       <div style={{ maxWidth: "900px", margin: "auto", padding: "15px" }}>
         <motion.h2 
@@ -167,7 +167,9 @@ const AdvisoryForm = () => {
               whileHover={{ scale: 1.05, boxShadow: "0 4px 8px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
               style={{
-                padding: "12px 25px",
+                padding: "12px 20px",
+                width: "auto",
+                maxWidth: "150px",
                 backgroundColor: editId ? "#2a75bb" : "#066b06",
                 color: "white",
                 border: "none",
@@ -178,7 +180,7 @@ const AdvisoryForm = () => {
                 transition: "all 0.3s ease",
               }}
             >
-              {editId ? "Update Advisory" : "Submit Advisory"}
+              {editId ? "Update" : "Submit"}
             </motion.button>
             
             {editId && (
@@ -187,7 +189,9 @@ const AdvisoryForm = () => {
                 whileHover={{ scale: 1.05, boxShadow: "0 4px 8px rgba(0,0,0,0.2)" }}
                 whileTap={{ scale: 0.95 }}
                 style={{
-                  padding: "12px 25px",
+                  padding: "12px 20px",
+                  width: "auto",
+                  maxWidth: "120px",
                   backgroundColor: "#6c757d",
                   color: "white",
                   border: "none",
@@ -294,17 +298,19 @@ const AdvisoryForm = () => {
                             background: "#007bff", 
                             border: "none", 
                             padding: "8px 15px", 
-                            borderRadius: "5px", 
+                            borderRadius: "5px",
+                            width: "75px",
                             cursor: "pointer",
                             fontWeight: "bold",
                             boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                             display: "flex",
                             alignItems: "center",
+                            justifyContent: "center",
                             gap: "5px",
                             transition: "all 0.3s ease"
                           }}
                         >
-                          ✏️ Edit
+                           Edit
                         </motion.button>
                         
                         {deleteConfirm === adv._id ? (
@@ -318,7 +324,8 @@ const AdvisoryForm = () => {
                                 background: "#dc3545", 
                                 border: "none", 
                                 padding: "8px 15px", 
-                                borderRadius: "5px", 
+                                borderRadius: "5px",
+                                width: "90px",
                                 cursor: "pointer",
                                 fontWeight: "bold",
                                 boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
@@ -336,7 +343,8 @@ const AdvisoryForm = () => {
                                 background: "#6c757d", 
                                 border: "none", 
                                 padding: "8px 15px", 
-                                borderRadius: "5px", 
+                                borderRadius: "5px",
+                                width: "80px",
                                 cursor: "pointer",
                                 fontWeight: "bold",
                                 boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
@@ -356,17 +364,19 @@ const AdvisoryForm = () => {
                               background: "#dc3545", 
                               border: "none", 
                               padding: "8px 15px", 
-                              borderRadius: "5px", 
+                              borderRadius: "5px",
+                              width: "85px",
                               cursor: "pointer",
                               fontWeight: "bold",
                               boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                               display: "flex",
                               alignItems: "center",
+                              justifyContent: "center",
                               gap: "5px",
                               transition: "all 0.3s ease"
                             }}
                           >
-                            🗑️ Delete
+                             Delete
                           </motion.button>
                         )}
                       </div>
@@ -397,11 +407,12 @@ const AdvisoryForm = () => {
                 borderRadius: "8px",
                 cursor: "pointer",
                 fontWeight: "bold",
+                width: "130px",
                 boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
                 transition: "all 0.3s ease"
               }}
             >
-              {showAll ? "Show Less" : "Show All Advisories"}
+              {showAll ? "Show Less" : "Show More"}
             </motion.button>
           </motion.div>
         )}
