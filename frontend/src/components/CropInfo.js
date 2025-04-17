@@ -26,6 +26,7 @@ const CropPriceLookup = () => {
                 Commodity: commodity,
                 District: district,
             });
+            console.log("Price data:", response.data);
             setPrices(response.data);
         } catch (err) {
             setError("Failed to fetch price data.");

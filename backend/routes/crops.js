@@ -28,7 +28,7 @@ router.post("/getPrices", async (req, res) => {
         };
 
         const data = await collection.find(query, {
-            projection: { Grade: 1, "Min Price": 1, "Max Price": 1, "Modal Price": 1, _id: 0 }
+            projection: { Market: 1, Grade: 1, "Min Price": 1, "Max Price": 1, "Modal Price": 1, _id: 0 }
         }).toArray();
 
         if (data.length === 0) {
